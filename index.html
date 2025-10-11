@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nwodu Gift — Web Designer & Software Engineer</title>
+  <meta name="description" content="Nwodu Gift — Professional Web Designer & Software Engineer from Kwale, Delta State. Portfolio, services and contact."/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle fill='%23ffcc00' cx='50' cy='50' r='45'/%3E%3Ctext x='50' y='58' font-size='40' text-anchor='middle' font-family='Arial' fill='%23000'%3EG%3C/text%3E%3C/svg%3E">
+
+  <!-- Google font (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1: #0f172a;
+      --glass: rgba(255,255,255,0.06);
+      --accent1: #7c3aed; /* purple */
+      --accent2: #06b6d4; /* cyan */
+      --accent3: #f59e0b; /* amber */
+      --muted: rgba(255,255,255,0.7);
+      --card: rgba(255,255,255,0.03);
+      --glass2: rgba(255,255,255,0.03);
+      --radius: 14px;
+      --maxw: 1100px;
+    }
+
+    /* Page baseline */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background: linear-gradient(180deg, #060714 0%, #07102a 100%);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      display:flex;
+      justify-content:center;
+      padding:40px 20px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+    }
+
+    /* Shiny animated hero background */
+    .hero{
+      border-radius:20px;
+      padding:48px;
+      background:
+        radial-gradient(600px 200px at 10% 10%, rgba(124,58,237,0.12), transparent 6%),
+        radial-gradient(400px 160px at 90% 80%, rgba(6,182,212,0.08), transparent 6%),
+        linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 8px 40px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+      display:flex;
+      gap:28px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .hero-left{flex:1 1 480px; min-width:280px}
+    .hero-right{width:320px; min-width:260px}
+
+    .title{
+      font-weight:800;
+      font-size:2.2rem;
+      letter-spacing:-0.02em;
+      margin:0 0 12px 0;
+      background: linear-gradient(90deg,var(--accent1), var(--accent2), var(--accent3));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .subtitle{
+      margin:0 0 18px 0;
+      color:var(--muted);
+      font-weight:500;
+    }
+
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap;}
+    .btn{
+      background: linear-gradient(90deg,var(--accent1),var(--accent2));
+      padding:12px 18px;
+      border-radius:12px;
+      color: #021124;
+      font-weight:700;
+      text-decoration:none;
+      box-shadow: 0 6px 18px rgba(18,30,76,0.45);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:hover{transform: translateY(-4px); box-shadow: 0 18px 36px rgba(6,182,212,0.12);}
+
+    .tag{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      color:var(--muted);
+      font-weight:600;
+      margin-right:8px;
+      font-size:0.9rem;
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+
+    /* clock card */
+    .clock-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:18px;
+      border-radius:14px;
+      text-align:center;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .clock-time{
+      font-weight:800;
+      font-size:1.7rem;
+      letter-spacing:0.02em;
+      margin:6px 0 0 0;
+      color: #fff;
+    }
+    .clock-tz{font-size:0.9rem;color:var(--muted);margin-top:6px;}
+
+    /* Main sections */
+    section{
+      margin-top:28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));
+      padding:28px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:18px;
+    }
+    @media (max-width:880px){ .grid{ grid-template-columns: repeat(2,1fr);} .hero{padding:28px} .hero-right{width:100%} }
+    @media (max-width:560px){ .grid{grid-template-columns:1fr;} .hero{padding:18px} .title{font-size:1.6rem} }
+
+    .card{
+      background: var(--card);
+      padding:18px;
+      border-radius:12px;
+      min-height:120px;
+      border: 1px solid rgba(255,255,255,0.02);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 22px 50px rgba(2,6,23,0.6);}
+
+    .skill-list{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+    .skill{
+      background: linear-gradient(90deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+      padding:8px 10px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:0.92rem;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    /* portfolio */
+    .portfolio-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+    @media (max-width:880px){ .portfolio-grid{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:560px){ .portfolio-grid{grid-template-columns:1fr;} }
+    .port-item{
+      height:150px; border-radius:10px; overflow:hidden; position:relative;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display:flex; align-items:center; justify-content:center;
+      color:var(--muted); font-weight:700; text-align:center; padding:12px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    /* testimonials */
+    .test{ font-style:italic; color:var(--muted); }
+
+    /* contact */
+    .contact-row{ display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;}
+    .contact-left{flex:1 1 420px}
+    .contact-right{width:320px; min-width:260px}
+
+    .contact-card{ padding:18px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.02); }
+
+    footer{ text-align:center; margin-top:28px; color:var(--muted); font-size:0.95rem;}
+
+    /* subtle shimmering effect on hero */
+    .shimmer{
+      position:relative;
+      overflow:hidden;
+    }
+    .shimmer:after{
+      content:'';
+      position:absolute;
+      left:-40%;
+      top:-40%;
+      width:180%;
+      height:180%;
+      background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.06), transparent 12%),
+                  radial-gradient(circle at 90% 90%, rgba(255,255,255,0.03), transparent 10%);
+      transform: rotate(20deg);
+      animation: shimmer 10s linear infinite;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+    @keyframes shimmer { from{transform:translateX(-20%) rotate(20deg)} to{transform:translateX(20%) rotate(20deg)} }
+
+    /* small utilities */
+    .muted{ color:var(--muted) }
+    a.phone-link{ color:var(--accent2); font-weight:700; text-decoration:none; }
+    .small{ font-size:0.92rem }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero shimmer" role="banner" aria-label="Hero - Nwodu Gift">
+      <div class="hero-left">
+        <div class="tag">Professional Web Designer • Software Engineer</div>
+        <h1 class="title">Nwodu Gift</h1>
+        <p class="subtitle">I design beautiful, high-performance websites and build reliable software. I combine clean UI, thoughtful UX, and maintainable code to ship products that scale.</p>
+
+        <div class="cta-row" style="margin-bottom:18px;">
+          <a class="btn" href="mailto:nwodugift5@gmail.com?subject=Work%20Enquiry%20for%20Nwodu%20Gift">Hire / Enquire</a>
+          <a class="btn" href="#portfolio" style="background:linear-gradient(90deg,var(--accent3),var(--accent1));">View Portfolio</a>
+          <a class="btn" href="#contact" style="background: linear-gradient(90deg,var(--accent2),var(--accent1));">Contact</a>
+        </div>
+
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+          <div class="small muted">Location</div>
+          <div class="muted" style="font-weight:700">Kwale, Delta State, Nigeria</div>
+          <div style="width:10px"></div>
+          <div class="small muted">Call</div>
+          <a class="phone-link" href="tel:+2349164624021">+234 916 462 4021</a>
+        </div>
+
+        <div style="margin-top:18px; color:var(--muted);">
+          <strong>About me:</strong>
+          <p class="small muted" style="margin:8px 0 0 0;">I'm a web designer and software engineer specializing in modern responsive websites, progressive web apps, and full-stack solutions. I focus on performance, accessibility, and clean maintainable code — whether building from scratch or improving existing projects.</p>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div class="clock-card">
+          <div style="font-size:0.95rem; color:var(--muted); font-weight:700">Current Local Time</div>
+          <div id="clock" class="clock-time" aria-live="polite">--:--:--</div>
+          <div id="clock-tz" class="clock-tz">Local timezone</div>
+          <div style="margin-top:12px;">
+            <div class="tag">Available for hire</div>
+            <div style="height:8px"></div>
+            <div class="tag" style="background:linear-gradient(90deg,var(--accent2),var(--accent1)); color: #021124;">Open to projects</div>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <!-- Services & Skills -->
+    <section aria-labelledby="services-title">
+      <h2 id="services-title" style="margin:0 0 12px 0">Services & Expertise</h2>
+      <div class="grid" role="list">
+        <div class="card" role="listitem">
+          <h3 style="margin:0 0 8px 0">Web Design & UI</h3>
+          <p class="muted small">Pixel-perfect interfaces, responsive layouts, and design systems that scale.</p>
+          <div class="skill-list" aria-hidden="true">
+            <span class="skill">Figma → Prototype</span>
+            <span class="skill">Responsive Design</span>
+            <span class="skill">Accessibility (WCAG)</span>
+          </div>
+        </div>
+
+        <div class="card" role="listitem">
+          <h3 style="margin:0 0 8px 0">Front-end Engineering</h3>
+          <p class="muted small">Modern JS frameworks, component-driven UI, performance optimizations.</p>
+          <div class="skill-list">
+            <span class="skill">HTML • CSS • JS</span>
+            <span class="skill">React / Next.js</span>
+            <span class="skill">Progressive Web App</span>
+          </div>
+        </div>
+
+        <div class="card" role="listitem">
+          <h3 style="margin:0 0 8px 0">Back-end & DevOps</h3>
+          <p class="muted small">APIs, databases, deployments, and sustainable architecture.</p>
+          <div class="skill-list">
+            <span class="skill">Node / Express</span>
+            <span class="skill">Postgres • MongoDB</span>
+            <span class="skill">Serverless • Docker</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" aria-labelledby="portfolio-title">
+      <h2 id="portfolio-title" style="margin:0 0 12px 0">Selected Portfolio</h2>
+      <p class="muted small" style="margin-top:0">Click each item to replace with your actual project details or add images/links.</p>
+      <div class="portfolio-grid" style="margin-top:12px">
+        <div class="port-item">Project A — E-commerce UI</div>
+        <div class="port-item">Project B — School Registration System</div>
+        <div class="port-item">Project C — Mobile-first Blog</div>
+        <div class="port-item">Project D — Dashboard & Analytics</div>
+        <div class="port-item">Project E — Landing + Conversion</div>
+        <div class="port-item">Project F — Custom PWA</div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section aria-labelledby="testi-title">
+      <h2 id="testi-title" style="margin:0 0 12px 0">Testimonials</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div class="card">
+          <div class="test">“Gift turned our messy brief into a clean, fast site. Communication was excellent.”</div>
+          <div style="margin-top:10px; font-weight:700;">— Client A</div>
+        </div>
+        <div class="card">
+          <div class="test">“Delivered an intuitive UI and improved our conversion rate. Highly recommended.”</div>
+          <div style="margin-top:10px; font-weight:700;">— Client B</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title" style="margin:0 0 12px 0">Get in touch</h2>
+      <div class="contact-row">
+        <div class="contact-left contact-card">
+          <p class="muted small" style="margin:0 0 10px 0">Prefer email? Use this form to send a message directly to my inbox. Or call/WhatsApp for faster replies.</p>
+
+          <!-- Simple mailto form fallback -->
+          <form onsubmit="event.preventDefault(); sendMail();" style="display:flex; flex-direction:column; gap:10px;">
+            <input id="name" placeholder="Your name" required style="padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03); background:transparent; color:inherit;">
+            <input id="email" placeholder="Your email" required type="email" style="padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03); background:transparent; color:inherit;">
+            <textarea id="message" placeholder="Brief message / project details" required rows="5" style="padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03); background:transparent; color:inherit;"></textarea>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn" type="submit">Send Message</button>
+              <a class="btn" href="mailto:ogbomosocollegeofnursingsc@gmail.com?subject=Project%20Enquiry%20for%20Nwodu%20Gift" style="background:linear-gradient(90deg,var(--accent3),var(--accent1));">Email Directly</a>
+            </div>
+            <div id="form-note" class="muted small" style="margin-top:6px;"></div>
+          </form>
+        </div>
+
+        <aside class="contact-right contact-card">
+          <h3 style="margin-top:0">Contact Details</h3>
+          <p class="small muted" style="margin:6px 0;"><strong>Phone:</strong> <a class="phone-link" href="tel:+2349164624021">+234 916 462 4021</a></p>
+          <p class="small muted" style="margin:6px 0;"><strong>Location:</strong> Kwale, Delta State, Nigeria</p>
+          <p class="small muted" style="margin:6px 0;"><strong>Email:</strong> <a style="color:var(--accent2); font-weight:700;" href="mailto:ogbomosocollegeofnursingsc@gmail.com">ogbomosocollegeofnursingsc@gmail.com</a></p>
+          <div style="height:12px"></div>
+          <div class="tag">Available for freelance & full-time</div>
+          <div style="height:10px"></div>
+          <a class="btn" href="#portfolio" style="display:inline-block; margin-top:10px;">See work</a>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      <div id="copyright">&copy; <span id="year"></span> Nwodu Gift — Web Designer & Software Engineer</div>
+      <div style="margin-top:6px;" class="muted small">Designed with ❤️ — Built for performance and clarity</div>
+    </footer>
+  </div>
+
+  <script>
+    // Live clock (updates every second)
+    function updateClock(){
+      const now = new Date();
+      // Format time HH:MM:SS AM/PM
+      const opts = { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true };
+      const timeStr = now.toLocaleTimeString(undefined, opts);
+      const tz = now.toLocaleTimeString(undefined,{timeZoneName:'short'}).split(' ').pop();
+      document.getElementById('clock').textContent = timeStr;
+      document.getElementById('clock-tz').textContent = tz ? tz : 'Local timezone';
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple mailto-based fallback: create mailto with message content
+    function sendMail(){
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if(!name || !email || !message){
+        document.getElementById('form-note').textContent = 'Please fill all fields.';
+        return;
+      }
+      const subject = encodeURIComponent('Website contact from ' + name);
+      let body = 'Name: ' + name + '%0D%0A' + 'Email: ' + email + '%0D%0A%0D%0A' + encodeURIComponent(message);
+      // Primary contact email — change if you want to use personal inbox
+      const mailto = 'mailto:nwodugift5@gmail.com?subject=' + subject + '&body=' + body;
+      // Open user's mail client
+      window.location.href = mailto;
+      document.getElementById('form-note').textContent = 'Opening your mail client...';
+    }
+
+    // Optional: small smooth scroll for anchor clicks
+    (function(){
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', e=>{
+          const target = document.querySelector(a.getAttribute('href'));
+          if(target){
+            e.preventDefault();
+            target.scrollIntoView({behavior:'smooth', block:'start'});
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
