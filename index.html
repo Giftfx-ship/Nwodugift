@@ -3,22 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-  <title>Dev Gift | Web Designer & Software Engineer • Kwale, Delta</title>
+  <title>Gift Nwodu | Web Designer & Software Engineer • Kwale, Delta</title>
   <meta name="description" content="I'm Gift Nwodu — I build websites and apps that actually work. Web designer & software engineer from Kwale, Delta State. Available for freelance projects.">
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000">
   
   <!-- Font Awesome + Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -27,58 +18,45 @@
       box-sizing: border-box;
     }
 
-    /* CSS Variables for Theme */
+    /* PROPER DARK THEME - DARK AF */
     :root {
-      --bg-dark: #000000;
-      --bg-light: #f5f7ff;
-      --text-dark: #ffffff;
-      --text-light: #1a1a2e;
-      --card-bg-dark: rgba(10, 10, 30, 0.4);
-      --card-bg-light: rgba(255, 255, 255, 0.85);
-      --glass-border-dark: rgba(0, 255, 255, 0.2);
-      --glass-border-light: rgba(0, 100, 200, 0.15);
-      transition: background-color 0.3s ease, color 0.3s ease;
+      --bg-primary: #010105;
+      --bg-secondary: #06060c;
+      --bg-card: rgba(8, 8, 18, 0.92);
+      --bg-card-solid: #0a0a14;
+      --text-primary: #ffffff;
+      --text-secondary: #c5c5dd;
+      --text-muted: #8a8aaa;
+      --accent-cyan: #0ff;
+      --accent-purple: #c084fc;
+      --accent-pink: #ff6ac4;
+      --accent-gold: #ffb347;
+      --border-glow: rgba(0, 255, 255, 0.25);
+      --shadow-glow: 0 0 20px rgba(0, 255, 255, 0.08);
+      --gradient-primary: linear-gradient(135deg, #0ff, #c084fc, #ff6ac4);
     }
 
     body {
       font-family: 'Inter', 'Space Grotesk', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
       overflow-x: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease;
       line-height: 1.6;
     }
 
-    /* Light Theme Styles */
-    body.light-theme {
-      background: var(--bg-light);
-      color: var(--text-light);
-    }
-    body.light-theme .glass-card {
-      background: var(--card-bg-light);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border-light);
-    }
-    body.light-theme .skill-badge {
-      background: rgba(0, 100, 200, 0.08);
-      border: 1px solid rgba(0, 100, 200, 0.2);
-      color: #1a1a2e;
-    }
-    body.light-theme .port-card {
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(0, 100, 200, 0.15);
-    }
-    body.light-theme .stat-card {
-      background: rgba(0, 0, 0, 0.05);
-    }
-    body.light-theme input, 
-    body.light-theme textarea {
-      background: rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(0, 100, 200, 0.2);
-      color: #1a1a2e;
-    }
-    body.light-theme .music-player {
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(0, 100, 200, 0.2);
-      color: #1a1a2e;
+    /* Animated gradient orbs */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 70%, rgba(192, 132, 252, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(255, 106, 196, 0.03) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* Three.js Canvas */
@@ -90,35 +68,7 @@
       height: 100%;
       z-index: 0;
       pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    body.light-theme #canvas-container {
-      opacity: 0.3;
-    }
-
-    /* Theme Toggle Button */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 50px;
-      padding: 10px 16px;
-      border: 1px solid rgba(0, 255, 255, 0.3);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-    body.light-theme .theme-toggle {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: rgba(0, 100, 200, 0.2);
-      color: #1a1a2e;
+      opacity: 0.6;
     }
 
     /* Main Content */
@@ -126,7 +76,7 @@
       position: relative;
       z-index: 2;
       opacity: 0;
-      transition: opacity 1.8s ease-out;
+      transition: opacity 1.5s ease-out;
     }
     .main-content.visible {
       opacity: 1;
@@ -138,20 +88,191 @@
       padding: 2rem;
     }
 
-    /* Mobile Friendly */
     @media (max-width: 768px) {
       .container { padding: 1rem; }
-      .hero { flex-direction: column; padding: 1.8rem !important; }
+      .hero { flex-direction: column; padding: 1.5rem !important; text-align: center; }
       .hero-left h1 { font-size: 2.2rem !important; }
-      .section-title { font-size: 1.6rem !important; }
-      .grid-3, .portfolio-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .btn { padding: 0.7rem 1.3rem; font-size: 0.85rem; }
-      .theme-toggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 0.8rem; }
-      .music-player { bottom: 15px; right: 15px; padding: 6px 12px; gap: 8px; }
-      .skill-badge { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
-      .stats-grid { gap: 0.8rem; }
-      .stat-card { padding: 0.5rem 1rem; font-size: 0.75rem; }
+      .section-title { font-size: 1.6rem !important; text-align: center; }
+      .grid-3, .portfolio-grid { grid-template-columns: 1fr; }
+      .stats-grid { justify-content: center; }
     }
+
+    /* Glass Cards - Dark & Glowy */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glow);
+      border-radius: 2rem;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: var(--shadow-glow);
+    }
+    .glass-card:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 35px rgba(0, 255, 255, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      font-family: 'Space Grotesk', monospace;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2.5rem;
+    }
+    .hero-left h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+    }
+    .hero-left h1 span {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-left p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 550px;
+      margin: 1.2rem 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 2rem;
+      background: linear-gradient(95deg, #0cc, #a855f7);
+      border-radius: 50px;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 15px rgba(0, 200, 200, 0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      box-shadow: none;
+    }
+    .btn-outline:hover {
+      background: rgba(0, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.05);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .skill-badge {
+      background: rgba(0, 255, 255, 0.1);
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-block;
+      margin: 0.25rem;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      transition: all 0.2s;
+      color: var(--text-secondary);
+    }
+    .skill-badge:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      transform: scale(1.02);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+    .port-card {
+      background: var(--bg-card-solid);
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      text-align: center;
+      transition: all 0.3s;
+      border: 1px solid rgba(0, 255, 255, 0.1);
+      cursor: pointer;
+    }
+    .port-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.1);
+    }
+
+    .stats-grid {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .stat-card {
+      background: rgba(0, 255, 255, 0.05);
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      border: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    /* Loading Overlay */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(12px);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.2s;
+    }
+    .loading-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .local-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(0, 255, 255, 0.2);
+      border-top: 3px solid #0ff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* Preloader */
     .preloader {
@@ -177,252 +298,178 @@
       width: 80px;
       height: 80px;
       border: 3px solid rgba(0, 255, 255, 0.2);
-      border-top: 3px solid #00ffff;
-      border-right: 3px solid #ff00ff;
+      border-top: 3px solid #0ff;
+      border-right: 3px solid #ff6ac4;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loader-text {
-      font-family: monospace;
-      font-size: 1rem;
-      letter-spacing: 2px;
-      color: #00ffff;
-    }
 
-    /* Music Player */
+    /* MUSIC PLAYER - DOPE PHONK STYLE */
     .music-player {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 25px;
+      right: 25px;
       z-index: 1000;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(20px);
-      border-radius: 40px;
-      padding: 8px 16px;
-      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 60px;
+      padding: 10px 20px;
+      border: 1px solid rgba(0, 255, 255, 0.4);
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.8rem;
+      gap: 14px;
+      font-size: 0.85rem;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      transition: all 0.3s;
+    }
+    .music-player:hover {
+      border-color: #0ff;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
     }
     .music-controls i {
       cursor: pointer;
-      margin: 0 5px;
+      margin: 0 6px;
       transition: 0.2s;
+      font-size: 1rem;
     }
-    .music-controls i:hover { color: #00ffff; transform: scale(1.1); }
-
-    /* Glass Cards */
-    .glass-card {
-      background: rgba(10, 10, 30, 0.35);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 255, 255, 0.15);
-      border-radius: 1.8rem;
-      transition: all 0.3s ease;
+    .music-controls i:hover { color: #0ff; transform: scale(1.1); }
+    .music-icon {
+      animation: pulse 1.5s infinite;
     }
-    .glass-card:hover {
-      border-color: rgba(0, 255, 255, 0.4);
-      transform: translateY(-3px);
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; text-shadow: 0 0 8px #0ff; }
     }
 
-    .section-title {
-      font-size: 2.2rem;
-      font-weight: 700;
-      font-family: 'Space Grotesk', monospace;
-      background: linear-gradient(120deg, #fff, #88ddff, #c084fc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero {
-      min-height: 85vh;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 2rem;
-      padding: 2.5rem;
-    }
-    .hero-left h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 0.5rem;
-    }
-    .hero-left h1 span {
-      background: linear-gradient(135deg, #00ffff, #ff00ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.8rem;
-      background: linear-gradient(95deg, #7c3aed, #0891b2);
-      border-radius: 40px;
-      font-weight: 600;
-      color: white;
-      text-decoration: none;
-      transition: 0.2s;
-      border: none;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    .btn-outline {
-      background: transparent;
-      border: 1.5px solid #00ffff;
-      color: #00ffff;
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.05);
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .skill-badge {
-      background: rgba(0, 255, 255, 0.1);
-      border-radius: 30px;
-      padding: 0.4rem 1rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      display: inline-block;
-      margin: 0.2rem;
-    }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-    .port-card {
-      background: rgba(20, 30, 55, 0.5);
-      border-radius: 1.3rem;
-      padding: 1.5rem;
-      text-align: center;
-      transition: all 0.3s;
-      border: 1px solid rgba(0, 255, 255, 0.1);
-      cursor: pointer;
-    }
-    .port-card:hover {
-      transform: translateY(-5px);
-      border-color: #00ffff;
-    }
-
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
+    /* Contact Form */
+    input, textarea {
       width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(12px);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      visibility: hidden;
-      opacity: 0;
+      padding: 0.9rem;
+      margin-bottom: 1rem;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 1rem;
+      color: white;
+      font-family: inherit;
       transition: 0.2s;
     }
-    .loading-overlay.active {
-      visibility: visible;
-      opacity: 1;
-    }
-    .local-spinner {
-      width: 50px;
-      height: 50px;
-      border: 3px solid rgba(0, 255, 255, 0.2);
-      border-top: 3px solid #00ffff;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #0ff;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
     }
 
-    .stats-grid {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
+    /* DOPE FOOTER */
+    .dope-footer {
+      margin-top: 4rem;
+      padding: 3rem 2rem 2rem;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+      border-top: 1px solid rgba(0, 255, 255, 0.2);
+      position: relative;
     }
-    .stat-card {
-      background: rgba(0, 0, 0, 0.3);
-      padding: 0.6rem 1.2rem;
-      border-radius: 1.5rem;
-      text-align: center;
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-logo h3 {
+      font-size: 1.5rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .footer-logo p {
+      color: var(--text-muted);
       font-size: 0.85rem;
     }
-
-    footer {
+    .footer-social {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-social a {
+      color: var(--text-secondary);
+      font-size: 1.3rem;
+      transition: 0.2s;
+    }
+    .footer-social a:hover {
+      color: #0ff;
+      transform: translateY(-3px);
+    }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+    .footer-links a:hover {
+      color: #0ff;
+    }
+    .footer-copyright {
       text-align: center;
-      padding: 2rem;
       margin-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: var(--text-muted);
+      font-size: 0.8rem;
     }
-
-    .real-talk {
-      font-size: 0.95rem;
-      color: #aaa;
-      line-height: 1.5;
+    .glow-text {
+      color: #0ff;
     }
-    body.light-theme .real-talk { color: #555; }
+    .footer-wave {
+      position: absolute;
+      top: -20px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(0,255,255,0.1) 20px, rgba(0,255,255,0.1) 40px);
+    }
+    @media (max-width: 768px) {
+      .footer-content { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+      .music-player { bottom: 15px; right: 15px; padding: 6px 14px; }
+    }
   </style>
 </head>
 <body>
 
-<!-- Three.js Canvas Container -->
 <div id="canvas-container"></div>
 
 <!-- Preloader -->
 <div class="preloader" id="preloader">
   <div class="loader-ring"></div>
-  <div class="loader-text">loading...</div>
-  <div class="loader-text" style="font-size: 0.8rem; color: #888;">Gift Nwodu</div>
+  <div class="loader-text" style="font-family: monospace; color: #0ff;">GIFT NWODU</div>
+  <div class="loader-text" style="font-size: 0.8rem; color: #888;">loading dope portfolio...</div>
 </div>
 
-<!-- Loading Overlay -->
-<div id="loadingOverlay" class="loading-overlay">
-  <div class="local-spinner"></div>
-</div>
+<div id="loadingOverlay" class="loading-overlay"><div class="local-spinner"></div></div>
 
-<!-- Theme Toggle -->
-<div class="theme-toggle" id="themeToggle">
-  <i class="fas fa-moon" id="themeIcon"></i>
-  <span id="themeText">Dark</span>
-</div>
-
-<!-- Music Player (simple, just for vibes) -->
+<!-- MUSIC PLAYER - PHONK STYLE -->
 <div class="music-player" id="musicPlayer">
   <div class="music-icon"><i class="fas fa-headphones"></i></div>
-  <div class="music-info">
-    <div id="trackName">lo-fi beats</div>
-  </div>
+  <div class="music-info"><span id="trackName">PHONK BEATS</span></div>
   <div class="music-controls">
     <i id="playPause" class="fas fa-play"></i>
+    <i id="stopMusic" class="fas fa-stop"></i>
   </div>
 </div>
 
-<!-- Main Content -->
 <div class="main-content" id="mainContent">
   <div class="container">
-    <!-- Hero Section - Real human intro -->
+    <!-- Hero Section -->
     <section class="hero glass-card" style="padding: 2.5rem;">
       <div class="hero-left">
-        <div class="skill-badge" style="margin-bottom: 1rem;">👋 hey, i'm Gift</div>
+        <div class="skill-badge" style="margin-bottom: 1rem; display: inline-block;">🔥 HEY, I'M GIFT</div>
         <h1>I build websites &<br><span>apps that actually work</span></h1>
-        <p style="font-size: 1.1rem; margin: 1.2rem 0; max-width: 550px; opacity: 0.9;">
-          Web designer + software engineer from <strong>Kwale, Delta State</strong>. 
-          I've been coding for a while now — helping businesses, creators, and founders get their ideas online.
-        </p>
+        <p>Web designer + software engineer from <strong class="glow-text">Kwale, Delta State</strong>. I help businesses, creators, and founders get their ideas online — no nonsense, just results.</p>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <a class="btn" href="#contact"><i class="fas fa-paper-plane"></i> Let's talk</a>
           <a class="btn btn-outline" href="#work"><i class="fas fa-eye"></i> See my work</a>
@@ -433,45 +480,45 @@
           <div class="stat-card"><i class="fas fa-map-marker-alt"></i> Kwale • Nigeria</div>
         </div>
         <div style="margin-top: 1.2rem;">
-          <p style="font-size: 0.9rem;"><i class="fas fa-phone-alt"></i> <a href="tel:+2349164624021" style="color: #0ff; text-decoration: none;">+234 916 462 4021</a> &nbsp;|&nbsp; 
-          <i class="fas fa-envelope"></i> devvgift@gmail.com</p>
+          <p><i class="fas fa-phone-alt"></i> <a href="tel:+2349164624021" style="color: #0ff; text-decoration: none;">+234 916 462 4021</a> &nbsp;|&nbsp; 
+          <i class="fas fa-envelope"></i> nwodugift5@gmail.com</p>
         </div>
       </div>
       <div class="hero-right">
         <div class="glass-card" style="padding: 1.5rem; text-align: center;">
           <i class="fas fa-clock" style="font-size: 2rem; color: #0ff;"></i>
           <div style="font-size: 2rem; font-weight: 700; font-family: monospace;" id="liveClock">--:--:--</div>
-          <div style="font-size: 0.8rem;">📍 Kwale, Delta • currently online</div>
+          <div style="font-size: 0.8rem;">📍 Kwale, Delta • available now</div>
           <hr style="margin: 1rem 0; opacity: 0.2;">
-          <div><i class="fas fa-check-circle"></i> Available for freelance</div>
+          <div><i class="fas fa-check-circle" style="color: #0ff;"></i> Freelance & Full-time</div>
           <div style="font-size: 0.8rem; margin-top: 0.5rem;">reply within hours</div>
         </div>
       </div>
     </section>
 
-    <!-- What I actually do - real talk -->
+    <!-- Services -->
     <section id="services">
       <h2 class="section-title">⚡ what i actually do</h2>
       <div class="grid-3">
         <div class="glass-card" style="padding: 1.8rem;">
-          <i class="fas fa-laptop-code" style="font-size: 2rem; color: #0ff;"></i>
+          <i class="fas fa-laptop-code" style="font-size: 2.2rem; color: #0ff;"></i>
           <h3 style="margin: 0.8rem 0;">Websites that don't suck</h3>
-          <p class="real-talk">Clean, fast, responsive sites that work on phones, tablets, and desktops. No boring templates — I build from scratch.</p>
+          <p class="real-talk" style="color: var(--text-secondary);">Clean, fast, responsive sites that work on phones, tablets, and desktops. Built from scratch, no boring templates.</p>
         </div>
         <div class="glass-card" style="padding: 1.8rem;">
-          <i class="fas fa-database" style="font-size: 2rem; color: #ff66cc;"></i>
+          <i class="fas fa-database" style="font-size: 2.2rem; color: #ff6ac4;"></i>
           <h3 style="margin: 0.8rem 0;">Backend & databases</h3>
-          <p class="real-talk">Need a login system, dashboard, or API? I handle the stuff that makes your site actually functional.</p>
+          <p class="real-talk" style="color: var(--text-secondary);">Login systems, dashboards, APIs — I handle the stuff that makes your site actually functional.</p>
         </div>
         <div class="glass-card" style="padding: 1.8rem;">
-          <i class="fas fa-chalkboard-user" style="font-size: 2rem; color: #ffaa44;"></i>
+          <i class="fas fa-chalkboard-user" style="font-size: 2.2rem; color: #ffb347;"></i>
           <h3 style="margin: 0.8rem 0;">Fix & improve existing sites</h3>
-          <p class="real-talk">Got a site that's slow or broken? I can jump in, clean things up, and make it faster.</p>
+          <p class="real-talk" style="color: var(--text-secondary);">Got a site that's slow or broken? I jump in, clean things up, and make it faster.</p>
         </div>
       </div>
     </section>
 
-    <!-- Real work / Portfolio -->
+    <!-- Portfolio -->
     <section id="work">
       <h2 class="section-title">📁 recent projects</h2>
       <div class="portfolio-grid">
@@ -481,12 +528,12 @@
           <p class="real-talk" style="font-size: 0.85rem;">Complete brand site + contact forms</p>
         </div>
         <div class="port-card" data-project="School System">
-          <i class="fas fa-graduation-cap" style="font-size: 2rem; color: #ff66cc;"></i>
+          <i class="fas fa-graduation-cap" style="font-size: 2rem; color: #ff6ac4;"></i>
           <h3 style="margin: 0.8rem 0;">School registration portal</h3>
           <p class="real-talk" style="font-size: 0.85rem;">Student management + payment tracking</p>
         </div>
         <div class="port-card" data-project="Portfolio for Client">
-          <i class="fas fa-user-astronaut" style="font-size: 2rem; color: #ffaa44;"></i>
+          <i class="fas fa-user-astronaut" style="font-size: 2rem; color: #ffb347;"></i>
           <h3 style="margin: 0.8rem 0;">Personal portfolio site</h3>
           <p class="real-talk" style="font-size: 0.85rem;">For a creative professional</p>
         </div>
@@ -498,93 +545,104 @@
       </div>
     </section>
 
-    <!-- Tools I use - honest list -->
+    <!-- Tools -->
     <section>
       <h2 class="section-title">🛠️ tools i actually use daily</h2>
       <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-        <span class="skill-badge">HTML/CSS/JS</span>
-        <span class="skill-badge">React</span>
-        <span class="skill-badge">Next.js</span>
-        <span class="skill-badge">Node.js</span>
-        <span class="skill-badge">Python</span>
-        <span class="skill-badge">MongoDB</span>
-        <span class="skill-badge">Figma</span>
-        <span class="skill-badge">Tailwind CSS</span>
-        <span class="skill-badge">Git/GitHub</span>
+        <span class="skill-badge">HTML/CSS/JS</span><span class="skill-badge">React</span><span class="skill-badge">Next.js</span>
+        <span class="skill-badge">Node.js</span><span class="skill-badge">Python</span><span class="skill-badge">MongoDB</span>
+        <span class="skill-badge">Figma</span><span class="skill-badge">Tailwind CSS</span><span class="skill-badge">Three.js</span>
       </div>
-      <p class="real-talk" style="margin-top: 1rem;">Not gonna lie — I keep learning new stuff every week. Currently deep into Three.js and AI stuff.</p>
+      <p class="real-talk" style="margin-top: 1rem; color: var(--text-muted);">Currently deep into Three.js and AI stuff. Always learning.</p>
     </section>
 
-    <!-- What people say (real testimonials) -->
+    <!-- Testimonials -->
     <section>
       <h2 class="section-title">💬 from people i've worked with</h2>
       <div class="grid-3">
         <div class="glass-card" style="padding: 1.5rem;">
-          <p class="real-talk">"Gift built my business website and actually listened to what I wanted. Delivered on time, no drama. Would recommend."</p>
+          <p class="real-talk" style="color: var(--text-secondary);">"Gift built my business website and actually listened to what I wanted. Delivered on time, no drama."</p>
           <p style="margin-top: 1rem; font-weight: 600;">— Chidi, Business Owner</p>
         </div>
         <div class="glass-card" style="padding: 1.5rem;">
-          <p class="real-talk">"Fixed my school's registration system that was crashing all the time. Now it works perfectly. Solid work."</p>
+          <p class="real-talk" style="color: var(--text-secondary);">"Fixed my school's registration system that was crashing. Now it works perfectly. Solid work."</p>
           <p style="margin-top: 1rem; font-weight: 600;">— Mrs. Okonkwo, School Admin</p>
         </div>
         <div class="glass-card" style="padding: 1.5rem;">
-          <p class="real-talk">"Fast communication, understands the assignment. Got my portfolio up in 2 weeks and it looks 🔥"</p>
+          <p class="real-talk" style="color: var(--text-secondary);">"Fast communication, understands the assignment. Got my portfolio up in 2 weeks and it looks 🔥"</p>
           <p style="margin-top: 1rem; font-weight: 600;">— Esther, Creative Director</p>
         </div>
       </div>
     </section>
 
-    <!-- Contact - real person, not a bot -->
+    <!-- Contact -->
     <section id="contact" class="glass-card" style="padding: 2rem;">
       <h2 class="section-title">📬 let's connect</h2>
       <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
         <div style="flex: 1;">
           <p><i class="fas fa-phone"></i> <strong>Call / WhatsApp:</strong> <a href="tel:+2349164624021" style="color: #0ff;">+234 916 462 4021</a></p>
-          <p><i class="fas fa-envelope"></i> <strong>Email:</strong> devvgift@gmail.com</p>
+          <p><i class="fas fa-envelope"></i> <strong>Email:</strong> nwodugift5@gmail.com</p>
           <p><i class="fas fa-map-marker-alt"></i> <strong>Based in:</strong> Kwale, Delta State, Nigeria</p>
           <div style="margin-top: 1.5rem;">
             <a href="https://www.facebook.com/profile.php?id=100083300451857" target="_blank" style="color: #0ff; font-size: 1.5rem; margin-right: 1rem;"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" style="color: #0ff; font-size: 1.5rem;"><i class="fab fa-whatsapp"></i></a>
+            <!-- WHATSAPP WITH PREFILLED MESSAGE -->
+            <a href="https://wa.me/2349164624021?text=Hey%20Gift%2C%20I%20saw%20your%20portfolio%20and%20I'm%20interested%20in%20working%20with%20you.%20My%20name%20is%20_____%20and%20I'd%20love%20to%20discuss%20a%20project." target="_blank" style="color: #0ff; font-size: 1.5rem;"><i class="fab fa-whatsapp"></i></a>
           </div>
         </div>
         <div style="flex: 1.5;">
           <form id="contactForm">
-            <input type="text" id="formName" placeholder="Your name" required style="width: 100%; padding: 0.8rem; margin-bottom: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(0,255,255,0.2); border-radius: 0.8rem;">
-            <input type="email" id="formEmail" placeholder="Email address" required style="width: 100%; padding: 0.8rem; margin-bottom: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(0,255,255,0.2); border-radius: 0.8rem;">
-            <textarea id="formMsg" rows="4" placeholder="What are you working on? Tell me a bit..." required style="width: 100%; padding: 0.8rem; margin-bottom: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(0,255,255,0.2); border-radius: 0.8rem;"></textarea>
+            <input type="text" id="formName" placeholder="Your name" required>
+            <input type="email" id="formEmail" placeholder="Email address" required>
+            <textarea id="formMsg" rows="4" placeholder="What are you working on? Tell me a bit..." required></textarea>
             <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Send message</button>
           </form>
           <div id="formFeedback" style="margin-top: 0.8rem; font-size: 0.85rem;"></div>
-          <p class="real-talk" style="margin-top: 1rem;">I usually reply within a few hours. No spam, just real conversation.</p>
         </div>
       </div>
     </section>
 
-    <footer>
-      <p>© <span id="year"></span> Dev Gift — Web Designer & Software Engineer, Kwale, Delta</p>
-      <p style="font-size: 0.75rem; margin-top: 0.5rem;">built by hand, with ☕ and focus</p>
+    <!-- DOPE FOOTER -->
+    <footer class="dope-footer">
+      <div class="footer-wave"></div>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h3>Gift Nwodu</h3>
+          <p>Web Designer & Software Engineer</p>
+          <p style="font-size: 0.75rem;">Kwale, Delta, Nigeria</p>
+        </div>
+        <div class="footer-links">
+          <a href="#services">Services</a>
+          <a href="#work">Projects</a>
+          <a href="#contact">Contact</a>
+          <a href="#" id="resetAudioBtn">🎵 Reset Audio</a>
+        </div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=100083300451857" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/2349164624021?text=Hey%20Gift%2C%20I%20saw%20your%20portfolio!" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="mailto:nwodugift5@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <p>© <span id="year"></span> Gift Nwodu — built with <i class="fas fa-heart" style="color: #ff6ac4;"></i> and phonk beats from Kwale</p>
+        <p style="font-size: 0.7rem; margin-top: 0.5rem;">code. create. dominate.</p>
+      </div>
     </footer>
   </div>
 </div>
 
 <script type="module">
   import * as THREE from 'three';
-
-  // 3D Background - subtle particles
   const container = document.getElementById('canvas-container');
   const scene = new THREE.Scene();
   scene.background = null;
-  
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.set(0, 0, 5);
-  
+  camera.position.set(0, 0, 6);
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
   container.appendChild(renderer.domElement);
   
-  // Star particles
-  const starCount = 1500;
+  const starCount = 1800;
   const starGeo = new THREE.BufferGeometry();
   const starPos = [];
   for (let i = 0; i < starCount; i++) {
@@ -593,20 +651,17 @@
     starPos.push((Math.random() - 0.5) * 80 - 30);
   }
   starGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(starPos), 3));
-  const starMat = new THREE.PointsMaterial({ color: 0x88aaff, size: 0.1, transparent: true, opacity: 0.6 });
+  const starMat = new THREE.PointsMaterial({ color: 0x88aaff, size: 0.12, transparent: true, opacity: 0.7 });
   const stars = new THREE.Points(starGeo, starMat);
   scene.add(stars);
   
-  let time = 0;
   function animate() {
     requestAnimationFrame(animate);
-    time += 0.002;
-    stars.rotation.y += 0.0005;
-    stars.rotation.x = Math.sin(time) * 0.05;
+    stars.rotation.y += 0.0008;
+    stars.rotation.x += 0.0003;
     renderer.render(scene, camera);
   }
   animate();
-  
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -615,26 +670,6 @@
 </script>
 
 <script>
-  // Theme toggle
-  const themeToggle = document.getElementById('themeToggle');
-  const body = document.body;
-  const themeIcon = document.getElementById('themeIcon');
-  const themeText = document.getElementById('themeText');
-  
-  let isDark = true;
-  themeToggle.addEventListener('click', () => {
-    isDark = !isDark;
-    if (isDark) {
-      body.classList.remove('light-theme');
-      themeIcon.className = 'fas fa-moon';
-      themeText.innerText = 'Dark';
-    } else {
-      body.classList.add('light-theme');
-      themeIcon.className = 'fas fa-sun';
-      themeText.innerText = 'Light';
-    }
-  });
-  
   // Preloader
   window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
@@ -645,8 +680,7 @@
         preloader.style.display = 'none';
         mainContent.classList.add('visible');
       }, 1000);
-    }, 1800);
-    
+    }, 1500);
     updateClock();
     setInterval(updateClock, 1000);
     document.getElementById('year').innerText = new Date().getFullYear();
@@ -657,25 +691,12 @@
     document.getElementById('liveClock').innerText = now.toLocaleTimeString('en-NG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   }
   
-  // Loading overlay for clicks
+  // Loading overlay
   const loaderOverlay = document.getElementById('loadingOverlay');
   function showLoader() { loaderOverlay.classList.add('active'); }
   function hideLoader() { setTimeout(() => loaderOverlay.classList.remove('active'), 400); }
   
-  // Clickable cards with loading effect
-  document.querySelectorAll('.glass-card, .port-card').forEach(el => {
-    el.addEventListener('click', (e) => {
-      if (e.target.closest('a') || e.target.closest('button')) return;
-      showLoader();
-      setTimeout(() => {
-        hideLoader();
-        el.style.transform = 'scale(0.99)';
-        setTimeout(() => { el.style.transform = ''; }, 150);
-      }, 500);
-    });
-  });
-  
-  // Portfolio items feedback
+  // Portfolio click feedback
   document.querySelectorAll('.port-card').forEach(card => {
     card.addEventListener('click', () => {
       const project = card.getAttribute('data-project') || 'project';
@@ -684,10 +705,10 @@
         hideLoader();
         const fb = document.getElementById('formFeedback');
         if (fb) {
-          fb.innerHTML = `✨ opened details for ${project} — hit me up if you want something similar!`;
+          fb.innerHTML = `✨ ${project} — hit me up if you want something similar!`;
           setTimeout(() => fb.innerHTML = '', 2500);
         }
-      }, 550);
+      }, 500);
     });
   });
   
@@ -698,76 +719,125 @@
     const email = document.getElementById('formEmail').value.trim();
     const msg = document.getElementById('formMsg').value.trim();
     if (!name || !email || !msg) {
-      document.getElementById('formFeedback').innerHTML = '🙏 please fill all fields before sending';
+      document.getElementById('formFeedback').innerHTML = '🙏 please fill all fields';
       return;
     }
     showLoader();
     setTimeout(() => {
-      window.location.href = `mailto:devvgift@gmail.com?subject=Message from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
-      document.getElementById('formFeedback').innerHTML = '📧 opening your email app... thanks!';
+      window.location.href = `mailto:nwodugift5@gmail.com?subject=Message from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
+      document.getElementById('formFeedback').innerHTML = '📧 opening email app... thanks!';
       hideLoader();
       setTimeout(() => document.getElementById('formFeedback').innerHTML = '', 3000);
       e.target.reset();
     }, 400);
   });
   
-  // Music player (simple oscillator)
+  // PHONK MUSIC PLAYER - DOPE SOUND
   let audioCtx = null;
-  let isPlayingMusic = false;
-  let osc = null;
-  let gain = null;
+  let isPlaying = false;
+  let currentOsc = null;
+  let currentGain = null;
+  let filterNode = null;
+  let lfoGain = null;
   
   function initAudio() {
     if (audioCtx) return;
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    gain = audioCtx.createGain();
-    gain.gain.value = 0.15;
-    gain.connect(audioCtx.destination);
+    lfoGain = audioCtx.createGain();
+    lfoGain.gain.value = 0;
+    lfoGain.connect(audioCtx.destination);
   }
   
-  function playSimpleTone() {
+  function playPhonk() {
     if (!audioCtx) initAudio();
-    if (osc) {
-      osc.stop();
-      osc.disconnect();
-    }
-    osc = audioCtx.createOscillator();
-    osc.type = 'sine';
-    osc.frequency.value = 440;
-    osc.connect(gain);
-    osc.start();
-    isPlayingMusic = true;
+    if (currentOsc) stopPhonk();
+    
+    const now = audioCtx.currentTime;
+    // Main bass drone - phonk style
+    const bass = audioCtx.createOscillator();
+    const bassGain = audioCtx.createGain();
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 300;
+    filter.Q.value = 5;
+    bass.type = 'sawtooth';
+    bass.frequency.value = 55;
+    bassGain.gain.value = 0.25;
+    bass.connect(filter);
+    filter.connect(bassGain);
+    bassGain.connect(audioCtx.destination);
+    bass.start();
+    
+    // Melody drone
+    const lead = audioCtx.createOscillator();
+    const leadGain = audioCtx.createGain();
+    lead.type = 'square';
+    lead.frequency.value = 110;
+    leadGain.gain.value = 0.12;
+    lead.connect(leadGain);
+    leadGain.connect(audioCtx.destination);
+    lead.start();
+    
+    // LFO wobble effect
+    const lfo = audioCtx.createOscillator();
+    lfo.type = 'sine';
+    lfo.frequency.value = 4;
+    const lfoGainMod = audioCtx.createGain();
+    lfoGainMod.gain.value = 40;
+    lfo.connect(lfoGainMod);
+    lfoGainMod.connect(filter.frequency);
+    lfo.start();
+    
+    currentOsc = { bass, lead, lfo };
+    currentGain = { bassGain, leadGain };
+    isPlaying = true;
     document.getElementById('playPause').className = 'fas fa-pause';
-    document.getElementById('trackName').innerHTML = 'lo-fi beat playing 🎧';
+    document.getElementById('trackName').innerHTML = '🎧 PHONK MODE 🔥';
   }
   
-  function stopTone() {
-    if (osc) {
-      osc.stop();
-      osc.disconnect();
-      osc = null;
+  function stopPhonk() {
+    if (currentOsc) {
+      if (currentOsc.bass) { currentOsc.bass.stop(); currentOsc.bass.disconnect(); }
+      if (currentOsc.lead) { currentOsc.lead.stop(); currentOsc.lead.disconnect(); }
+      if (currentOsc.lfo) { currentOsc.lfo.stop(); currentOsc.lfo.disconnect(); }
+      currentOsc = null;
     }
-    isPlayingMusic = false;
+    isPlaying = false;
     document.getElementById('playPause').className = 'fas fa-play';
-    document.getElementById('trackName').innerHTML = 'lo-fi beats';
+    document.getElementById('trackName').innerHTML = 'PHONK BEATS';
   }
   
   document.getElementById('playPause').addEventListener('click', () => {
-    if (isPlayingMusic) {
-      stopTone();
+    if (isPlaying) {
+      stopPhonk();
     } else {
       if (!audioCtx) initAudio();
-      playSimpleTone();
+      playPhonk();
     }
   });
   
-  // First click anywhere to enable audio (browser policy)
+  document.getElementById('stopMusic').addEventListener('click', () => {
+    stopPhonk();
+  });
+  
+  document.getElementById('resetAudioBtn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    stopPhonk();
+    if (audioCtx) {
+      audioCtx.close();
+      audioCtx = null;
+    }
+    document.getElementById('trackName').innerHTML = 'PHONK BEATS';
+    document.getElementById('playPause').className = 'fas fa-play';
+  });
+  
+  // Enable audio on first click anywhere
   document.body.addEventListener('click', () => {
     if (!audioCtx && document.getElementById('preloader').style.display !== 'none') return;
     if (!audioCtx) initAudio();
   }, { once: true });
   
-  // Smooth scroll with loader
+  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       const hash = anchor.getAttribute('href');
