@@ -8,15 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
   <style>
-    /* ============================================================
-       PORTFOLIO PAGE - PROFESSIONAL WITH ANIMATIONS
-       ============================================================ */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* ===== PORTFOLIO PAGE STYLES ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --bg-primary: #0a0a0f;
       --bg-secondary: #11111a;
@@ -32,10 +25,8 @@
       --border-glow: rgba(0, 212, 255, 0.12);
       --radius-lg: 28px;
       --radius-md: 16px;
-      --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.5);
       --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', 'Space Grotesk', sans-serif;
@@ -47,12 +38,11 @@
       transition: opacity 0.8s ease;
     }
     body.loaded { opacity: 1; }
-
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg-primary); }
     ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
 
-    /* ===== PRELOADER ===== */
+    /* Preloader */
     .preloader {
       position: fixed;
       top: 0; left: 0;
@@ -65,10 +55,7 @@
       align-items: center;
       transition: all 0.8s ease;
     }
-    .preloader.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+    .preloader.hidden { opacity: 0; pointer-events: none; }
     .preloader-cube {
       width: 80px; height: 80px;
       position: relative;
@@ -104,37 +91,46 @@
       font-weight: 600;
       animation: pulseText 1.5s infinite;
     }
-    .preloader-sub {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      margin-top: 0.5rem;
-      letter-spacing: 2px;
-    }
+    .preloader-sub { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 2px; }
     .preloader-bar {
-      width: 200px;
-      height: 2px;
+      width: 200px; height: 2px;
       background: rgba(255,255,255,0.05);
       border-radius: 10px;
       margin-top: 1.5rem;
       overflow: hidden;
     }
     .preloader-bar-fill {
-      height: 100%;
-      width: 0%;
+      height: 100%; width: 0%;
       background: var(--gradient-primary);
       border-radius: 10px;
       animation: loadBar 2s ease forwards;
     }
-    @keyframes loadBar {
-      0% { width: 0%; }
-      100% { width: 100%; }
-    }
-    @keyframes pulseText {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
+    @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
+    @keyframes pulseText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-    /* ===== NAVIGATION ===== */
+    /* WhatsApp Float */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 9999;
+      background: #25D366;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      transition: var(--transition);
+      text-decoration: none;
+      animation: pulse-whatsapp 2s infinite;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 40px rgba(37, 211, 102, 0.6); }
+    .whatsapp-float i { font-size: 2rem; color: #fff; }
+    @keyframes pulse-whatsapp { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+    /* Navigation */
     .navbar {
       position: fixed;
       top: 0; left: 0;
@@ -151,13 +147,8 @@
       transform: translateY(-100%);
       animation: slideDown 0.8s ease 2.2s forwards;
     }
-    @keyframes slideDown {
-      to { transform: translateY(0); }
-    }
-    .navbar.scrolled {
-      background: rgba(8, 8, 14, 0.96);
-      box-shadow: 0 4px 30px rgba(0,0,0,0.6);
-    }
+    @keyframes slideDown { to { transform: translateY(0); } }
+    .navbar.scrolled { background: rgba(8, 8, 14, 0.96); box-shadow: 0 4px 30px rgba(0,0,0,0.6); }
     .nav-container {
       max-width: 1300px;
       width: 100%;
@@ -214,10 +205,7 @@
       font-weight: 600 !important;
       transition: all 0.3s !important;
     }
-    .nav-cta:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(0,212,255,0.3);
-    }
+    .nav-cta:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0,212,255,0.3); }
     .nav-cta::after { display: none !important; }
     .hamburger {
       display: none;
@@ -225,12 +213,7 @@
       gap: 5px;
       cursor: pointer;
     }
-    .hamburger span {
-      width: 25px;
-      height: 2px;
-      background: var(--text-primary);
-      transition: all 0.3s;
-    }
+    .hamburger span { width: 25px; height: 2px; background: var(--text-primary); transition: all 0.3s; }
 
     @media (max-width: 768px) {
       .nav-menu {
@@ -248,16 +231,18 @@
       }
       .nav-menu.active { transform: translateY(0); }
       .hamburger { display: flex; }
-      .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-      }
+      .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
       .hamburger.active span:nth-child(2) { opacity: 0; }
-      .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-      }
+      .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+      .whatsapp-float { width: 50px; height: 50px; bottom: 20px; left: 20px; }
+      .whatsapp-float i { font-size: 1.6rem; }
+    }
+    @media (max-width: 480px) {
+      .whatsapp-float { width: 45px; height: 45px; bottom: 15px; left: 15px; }
+      .whatsapp-float i { font-size: 1.4rem; }
     }
 
-    /* ===== PAGE HEADER ===== */
+    /* Page Header */
     .page-header {
       padding: 10rem 2rem 5rem;
       text-align: center;
@@ -301,7 +286,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== PORTFOLIO GRID ===== */
+    /* Portfolio Grid */
     .portfolio-grid {
       max-width: 1300px;
       margin: 0 auto;
@@ -320,16 +305,9 @@
       opacity: 0;
       transform: translateY(30px);
     }
-    .portfolio-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.6s ease;
-    }
-    .portfolio-item:hover {
-      border-color: var(--cyan);
-      transform: translateY(-8px);
-      box-shadow: 0 20px 60px rgba(0,212,255,0.08);
-    }
+    .portfolio-item.visible { opacity: 1; transform: translateY(0); transition: all 0.6s ease; }
+    .portfolio-item:hover { border-color: var(--cyan); transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,212,255,0.08); }
+
     .portfolio-image {
       height: 200px;
       background: var(--bg-secondary);
@@ -358,18 +336,9 @@
       background-clip: text;
       color: transparent;
     }
-    .portfolio-body {
-      padding: 1.5rem;
-    }
-    .portfolio-body h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-    .portfolio-body p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
+    .portfolio-body { padding: 1.5rem; }
+    .portfolio-body h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .portfolio-body p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
     .portfolio-tech {
       display: flex;
       flex-wrap: wrap;
@@ -393,16 +362,12 @@
       gap: 0.5rem;
       transition: var(--transition);
     }
-    .portfolio-link:hover {
-      gap: 0.8rem;
-      color: var(--text-primary);
-    }
+    .portfolio-link:hover { gap: 0.8rem; color: var(--text-primary); }
 
     @media (max-width: 768px) {
       .page-title { font-size: 2.5rem; }
       .portfolio-grid { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 480px) {
       .page-title { font-size: 2rem; }
     }
@@ -426,6 +391,14 @@
       <div class="preloader-bar-fill"></div>
     </div>
   </div>
+
+  <!-- ===== WHATSAPP FLOAT ===== -->
+  <a href="https://wa.me/2349164624021?text=My%20name%20is%20-%20I%20want%20to%20build%20a%20project" 
+     target="_blank" 
+     class="whatsapp-float" 
+     aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
 
   <!-- ===== NAVIGATION ===== -->
   <nav class="navbar" id="navbar">
@@ -457,6 +430,7 @@
 
   <!-- ===== PORTFOLIO ===== -->
   <section class="portfolio-grid">
+    <!-- DevSavePro -->
     <div class="portfolio-item">
       <div class="portfolio-image">
         <i class="fas fa-cloud-upload-alt"></i>
