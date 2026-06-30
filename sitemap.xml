@@ -1,49 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
-  <!-- Homepage -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://devgiftportfolio.name.ng/</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://devgiftportfolio.name.ng/images/anime.png</image:loc>
-      <image:caption>Dev Gift - Web Designer & Software Engineer</image:caption>
-    </image:image>
   </url>
-  
-  <!-- About Page -->
   <url>
     <loc>https://devgiftportfolio.name.ng/about.html</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Services Page -->
   <url>
     <loc>https://devgiftportfolio.name.ng/services.html</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Portfolio Page -->
   <url>
     <loc>https://devgiftportfolio.name.ng/portfolio.html</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Contact Page -->
   <url>
     <loc>https://devgiftportfolio.name.ng/contact.html</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
 </urlset>
