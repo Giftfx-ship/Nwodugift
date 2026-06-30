@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dev Gift · About</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* ============================================================
+       ABOUT PAGE - PROFESSIONAL WITH ANIMATIONS
+       ============================================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #11111a;
+      --bg-card: rgba(18, 18, 30, 0.92);
+      --text-primary: #ffffff;
+      --text-secondary: #b8b8d0;
+      --text-muted: #6a6a85;
+      --cyan: #00d4ff;
+      --purple: #7c3aed;
+      --pink: #ec4899;
+      --gold: #f59e0b;
+      --gradient-primary: linear-gradient(135deg, #00d4ff, #7c3aed, #ec4899);
+      --border-glow: rgba(0, 212, 255, 0.12);
+      --radius-lg: 28px;
+      --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.5);
+      --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Space Grotesk', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.7;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    body.loaded { opacity: 1; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
+
+    /* ===== PRELOADER ===== */
+    .preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--bg-primary);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.8s ease;
+    }
+    .preloader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .preloader-cube {
+      width: 80px; height: 80px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: spinCube 1.5s infinite linear;
+    }
+    .preloader-cube .face {
+      position: absolute;
+      width: 80px; height: 80px;
+      background: var(--gradient-primary);
+      border: 2px solid rgba(255,255,255,0.1);
+      opacity: 0.9;
+    }
+    .preloader-cube .front { transform: translateZ(40px); }
+    .preloader-cube .back { transform: translateZ(-40px) rotateY(180deg); }
+    .preloader-cube .right { transform: translateX(40px) rotateY(90deg); }
+    .preloader-cube .left { transform: translateX(-40px) rotateY(-90deg); }
+    .preloader-cube .top { transform: translateY(-40px) rotateX(90deg); }
+    .preloader-cube .bottom { transform: translateY(40px) rotateX(-90deg); }
+    @keyframes spinCube {
+      0% { transform: rotateX(0deg) rotateY(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+    .preloader-text {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      letter-spacing: 4px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 600;
+      animation: pulseText 1.5s infinite;
+    }
+    .preloader-sub {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      letter-spacing: 2px;
+    }
+    .preloader-bar {
+      width: 200px;
+      height: 2px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      margin-top: 1.5rem;
+      overflow: hidden;
+    }
+    .preloader-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--gradient-primary);
+      border-radius: 10px;
+      animation: loadBar 2s ease forwards;
+    }
+    @keyframes loadBar {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    @keyframes pulseText {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ===== NAVIGATION ===== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 0 2rem;
+      height: 75px;
+      display: flex;
+      align-items: center;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: all 0.4s;
+      transform: translateY(-100%);
+      animation: slideDown 0.8s ease 2.2s forwards;
+    }
+    @keyframes slideDown {
+      to { transform: translateY(0); }
+    }
+    .navbar.scrolled {
+      background: rgba(8, 8, 14, 0.96);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+    }
+    .nav-container {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .logo-emoji { color: var(--cyan); font-size: 1.8rem; }
+    .logo-light { color: var(--text-muted); font-weight: 400; }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-menu a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+      transition: all 0.3s;
+    }
+    .nav-menu a:hover::after,
+    .nav-menu a.active::after { width: 100%; }
+    .nav-menu a:hover { color: var(--text-primary); }
+    .nav-menu a.active { color: var(--text-primary); }
+    .nav-cta {
+      background: var(--gradient-primary);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      color: #fff !important;
+      font-weight: 600 !important;
+      transition: all 0.3s !important;
+    }
+    .nav-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0,212,255,0.3);
+    }
+    .nav-cta::after { display: none !important; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 75px; left: 0;
+        width: 100%;
+        background: rgba(10,10,15,0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        transform: translateY(-120%);
+        transition: all 0.4s;
+        border-bottom: 1px solid var(--border-glow);
+      }
+      .nav-menu.active { transform: translateY(0); }
+      .hamburger { display: flex; }
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      padding: 10rem 2rem 5rem;
+      text-align: center;
+      position: relative;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 30%, rgba(0,212,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-tag {
+      font-size: 0.8rem;
+      color: var(--cyan);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease 2.5s forwards;
+    }
+    .page-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-top: 0.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 2.7s forwards;
+    }
+    .page-desc {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 1rem auto 0;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 2.9s forwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== ABOUT CONTENT ===== */
+    .about-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .about-text h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 1.2rem;
+    }
+    .about-text .lead {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+
+    .about-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .value-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .value-item:hover {
+      border-color: var(--cyan);
+      transform: translateY(-4px);
+    }
+    .value-item i {
+      font-size: 1.5rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .value-item h4 { font-size: 1rem; }
+    .value-item span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .about-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .code-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      width: 100%;
+      font-family: 'Space Grotesk', monospace;
+    }
+    .code-line {
+      padding: 0.3rem 0;
+      font-size: 0.9rem;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+    .code-line:nth-child(1) { animation-delay: 3.2s; }
+    .code-line:nth-child(2) { animation-delay: 3.4s; }
+    .code-line:nth-child(3) { animation-delay: 3.6s; }
+    .code-line:nth-child(4) { animation-delay: 3.8s; }
+    .code-line:nth-child(5) { animation-delay: 4.0s; }
+    .code-line:nth-child(6) { animation-delay: 4.2s; }
+    .code-keyword { color: var(--pink); }
+    .code-var { color: var(--cyan); }
+    .code-string { color: var(--gold); }
+    .code-boolean { color: var(--purple); }
+    .code-prop { color: var(--text-secondary); }
+
+    /* ===== TIMELINE ===== */
+    .timeline-section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .timeline-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.6s ease;
+    }
+    .timeline-item:hover {
+      border-color: var(--cyan);
+      transform: translateY(-6px);
+    }
+    .timeline-year {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: block;
+    }
+    .timeline-item h4 {
+      margin: 0.5rem 0;
+    }
+    .timeline-item p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .about-values {
+        grid-template-columns: 1fr;
+      }
+      .page-title {
+        font-size: 2.5rem;
+      }
+      .timeline-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title { font-size: 2rem; }
+      .code-block { padding: 1rem; }
+      .code-line { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== PRELOADER ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-cube">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face right"></div>
+      <div class="face left"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
+    </div>
+    <div class="preloader-text">Dev Gift</div>
+    <div class="preloader-sub">Loading...</div>
+    <div class="preloader-bar">
+      <div class="preloader-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-emoji">◆</span> DEV<span class="logo-light">GIFT</span>
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Work</a></li>
+        <li><a href="contact.html" class="nav-cta">Let's Talk</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-header">
+    <span class="page-tag">About Me</span>
+    <h1 class="page-title">The <span class="gradient-text">Vision</span> Behind the Code</h1>
+    <p class="page-desc">Building digital experiences that leave a mark on the world.</p>
+  </section>
+
+  <!-- ===== ABOUT CONTENT ===== -->
+  <section class="about-content">
+    <div class="about-text">
+      <h2>I'm Dev Gift — <span class="gradient-text">Kwale, Delta</span></h2>
+      <p class="lead">
+        I'm a <strong>web designer & software engineer</strong> who believes that 
+        great technology should feel effortless. From the swamps of Delta to the 
+        global digital stage, I bring a unique perspective to every project.
+      </p>
+      <p>
+        With <strong>4+ years</strong> of experience, I've helped over 50 clients 
+        build everything from sleek portfolio sites to complex enterprise applications. 
+        My approach is simple: understand the problem, craft the solution, and deliver 
+        with excellence.
+      </p>
+      <div class="about-values">
+        <div class="value-item">
+          <i class="fas fa-bolt"></i>
+          <h4>Speed</h4>
+          <span>Lightning fast performance</span>
+        </div>
+        <div class="value-item">
+          <i class="fas fa-shield"></i>
+          <h4>Security</h4>
+          <span>Bank-grade protection</span>
+        </div>
+        <div class="value-item">
+          <i class="fas fa-palette"></i>
+          <h4>Design</h4>
+          <span>Pixel-perfect execution</span>
+        </div>
+        <div class="value-item">
+          <i class="fas fa-rocket"></i>
+          <h4>Innovation</h4>
+          <span>Cutting-edge solutions</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="code-block">
+        <div class="code-line"><span class="code-keyword">const</span> <span class="code-var">devGift</span> = {</div>
+        <div class="code-line"><span class="code-prop">title</span>: <span class="code-string">"Web Engineer"</span>,</div>
+        <div class="code-line"><span class="code-prop">location</span>: <span class="code-string">"Kwale, Delta"</span>,</div>
+        <div class="code-line"><span class="code-prop">mission</span>: <span class="code-string">"Build the future"</span>,</div>
+        <div class="code-line"><span class="code-prop">available</span>: <span class="code-boolean">true</span>,</div>
+        <div class="code-line"><span class="code-prop">passion</span>: <span class="code-string">"Code + Design"</span></div>
+        <div class="code-line">};</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TIMELINE ===== -->
+  <section class="timeline-section">
+    <div class="section-header" style="text-align:center;">
+      <span class="page-tag">Journey</span>
+      <h2 class="page-title" style="font-size:2.5rem;">The <span class="gradient-text">Path</span> So Far</h2>
+    </div>
+    <div class="timeline-grid">
+      <div class="timeline-item">
+        <span class="timeline-year">2020</span>
+        <h4>Started Freelancing</h4>
+        <p>First client, first project — the journey began.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2021</span>
+        <h4>Full Stack Mastery</h4>
+        <p>Expanded into backend, databases, and cloud.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2022</span>
+        <h4>50+ Clients</h4>
+        <p>Built trust and delivered real results.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2024</span>
+        <h4>AI & 3D Web</h4>
+        <p>Pushing boundaries with Three.js and AI.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ===== PRELOADER =====
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('preloader').classList.add('hidden');
+        document.body.classList.add('loaded');
+      }, 2500);
+    });
+
+    // ===== NAVIGATION =====
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // ===== TIMELINE REVEAL =====
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 150);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    timelineItems.forEach(item => observer.observe(item));
+  </script>
+
+</body>
+</html>
