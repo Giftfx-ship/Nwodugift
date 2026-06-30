@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /temp/
+
+Sitemap: https://devgiftportfolio.name.ng/sitemap.xml
+
+# Crawl delay for better performance
+Crawl-delay: 1
+
+# Allow Google to index images
+User-agent: Googlebot-Image
+Allow: /images/
