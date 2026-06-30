@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dev Gift · Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* ============================================================
+       PORTFOLIO PAGE - PROFESSIONAL WITH ANIMATIONS
+       ============================================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #11111a;
+      --bg-card: rgba(18, 18, 30, 0.92);
+      --text-primary: #ffffff;
+      --text-secondary: #b8b8d0;
+      --text-muted: #6a6a85;
+      --cyan: #00d4ff;
+      --purple: #7c3aed;
+      --pink: #ec4899;
+      --gold: #f59e0b;
+      --gradient-primary: linear-gradient(135deg, #00d4ff, #7c3aed, #ec4899);
+      --border-glow: rgba(0, 212, 255, 0.12);
+      --radius-lg: 28px;
+      --radius-md: 16px;
+      --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.5);
+      --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Space Grotesk', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.7;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    body.loaded { opacity: 1; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
+
+    /* ===== PRELOADER ===== */
+    .preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--bg-primary);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.8s ease;
+    }
+    .preloader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .preloader-cube {
+      width: 80px; height: 80px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: spinCube 1.5s infinite linear;
+    }
+    .preloader-cube .face {
+      position: absolute;
+      width: 80px; height: 80px;
+      background: var(--gradient-primary);
+      border: 2px solid rgba(255,255,255,0.1);
+      opacity: 0.9;
+    }
+    .preloader-cube .front { transform: translateZ(40px); }
+    .preloader-cube .back { transform: translateZ(-40px) rotateY(180deg); }
+    .preloader-cube .right { transform: translateX(40px) rotateY(90deg); }
+    .preloader-cube .left { transform: translateX(-40px) rotateY(-90deg); }
+    .preloader-cube .top { transform: translateY(-40px) rotateX(90deg); }
+    .preloader-cube .bottom { transform: translateY(40px) rotateX(-90deg); }
+    @keyframes spinCube {
+      0% { transform: rotateX(0deg) rotateY(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+    .preloader-text {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      letter-spacing: 4px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 600;
+      animation: pulseText 1.5s infinite;
+    }
+    .preloader-sub {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      letter-spacing: 2px;
+    }
+    .preloader-bar {
+      width: 200px;
+      height: 2px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      margin-top: 1.5rem;
+      overflow: hidden;
+    }
+    .preloader-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--gradient-primary);
+      border-radius: 10px;
+      animation: loadBar 2s ease forwards;
+    }
+    @keyframes loadBar {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    @keyframes pulseText {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ===== NAVIGATION ===== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 0 2rem;
+      height: 75px;
+      display: flex;
+      align-items: center;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: all 0.4s;
+      transform: translateY(-100%);
+      animation: slideDown 0.8s ease 2.2s forwards;
+    }
+    @keyframes slideDown {
+      to { transform: translateY(0); }
+    }
+    .navbar.scrolled {
+      background: rgba(8, 8, 14, 0.96);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+    }
+    .nav-container {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .logo-emoji { color: var(--cyan); font-size: 1.8rem; }
+    .logo-light { color: var(--text-muted); font-weight: 400; }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-menu a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+      transition: all 0.3s;
+    }
+    .nav-menu a:hover::after,
+    .nav-menu a.active::after { width: 100%; }
+    .nav-menu a:hover { color: var(--text-primary); }
+    .nav-menu a.active { color: var(--text-primary); }
+    .nav-cta {
+      background: var(--gradient-primary);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      color: #fff !important;
+      font-weight: 600 !important;
+      transition: all 0.3s !important;
+    }
+    .nav-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0,212,255,0.3);
+    }
+    .nav-cta::after { display: none !important; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 75px; left: 0;
+        width: 100%;
+        background: rgba(10,10,15,0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        transform: translateY(-120%);
+        transition: all 0.4s;
+        border-bottom: 1px solid var(--border-glow);
+      }
+      .nav-menu.active { transform: translateY(0); }
+      .hamburger { display: flex; }
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      padding: 10rem 2rem 5rem;
+      text-align: center;
+      position: relative;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 30%, rgba(0,212,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-tag {
+      font-size: 0.8rem;
+      color: var(--cyan);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease 2.5s forwards;
+    }
+    .page-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-top: 0.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 2.7s forwards;
+    }
+    .page-desc {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 1rem auto 0;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 2.9s forwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== PORTFOLIO GRID ===== */
+    .portfolio-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    .portfolio-item {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .portfolio-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.6s ease;
+    }
+    .portfolio-item:hover {
+      border-color: var(--cyan);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,212,255,0.08);
+    }
+    .portfolio-image {
+      height: 200px;
+      background: var(--bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-primary);
+      opacity: 0.1;
+    }
+    .portfolio-image i {
+      position: relative;
+      z-index: 1;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .portfolio-body {
+      padding: 1.5rem;
+    }
+    .portfolio-body h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .portfolio-body p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .portfolio-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .portfolio-tech span {
+      background: rgba(0,212,255,0.08);
+      padding: 0.2rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      border: 1px solid rgba(0,212,255,0.05);
+    }
+    .portfolio-link {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+    .portfolio-link:hover {
+      gap: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .page-title { font-size: 2.5rem; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .page-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== PRELOADER ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-cube">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face right"></div>
+      <div class="face left"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
+    </div>
+    <div class="preloader-text">Dev Gift</div>
+    <div class="preloader-sub">Loading...</div>
+    <div class="preloader-bar">
+      <div class="preloader-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-emoji">◆</span> DEV<span class="logo-light">GIFT</span>
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html" class="active">Work</a></li>
+        <li><a href="contact.html" class="nav-cta">Let's Talk</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-header">
+    <span class="page-tag">My Work</span>
+    <h1 class="page-title">Projects That <span class="gradient-text">Inspire</span></h1>
+    <p class="page-desc">Each project is a testament to quality, performance, and design excellence.</p>
+  </section>
+
+  <!-- ===== PORTFOLIO ===== -->
+  <section class="portfolio-grid">
+    <div class="portfolio-item">
+      <div class="portfolio-image">
+        <i class="fas fa-cloud-upload-alt"></i>
+      </div>
+      <div class="portfolio-body">
+        <h3>DevSavePro</h3>
+        <p>Save anything from anywhere. Download videos, reels, shorts, images from all social media platforms. AI image generator & live sports scores.</p>
+        <div class="portfolio-tech">
+          <span>React</span>
+          <span>Node.js</span>
+          <span>AI</span>
+          <span>API</span>
+        </div>
+        <a href="https://devsavepro.name.ng" target="_blank" class="portfolio-link">
+          <i class="fas fa-external-link-alt"></i> View Project
+        </a>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="portfolio-image">
+        <i class="fas fa-chart-bar"></i>
+      </div>
+      <div class="portfolio-body">
+        <h3>Business Intelligence Suite</h3>
+        <p>Complete analytics dashboard with real-time data visualization, custom reports, and team collaboration tools.</p>
+        <div class="portfolio-tech">
+          <span>React</span>
+          <span>D3.js</span>
+          <span>Node.js</span>
+          <span>MongoDB</span>
+        </div>
+        <a href="#" class="portfolio-link">
+          <i class="fas fa-external-link-alt"></i> View Project
+        </a>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="portfolio-image">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <div class="portfolio-body">
+        <h3>School Management System</h3>
+        <p>Complete school registration portal with student management, payment tracking, and automated reporting.</p>
+        <div class="portfolio-tech">
+          <span>Next.js</span>
+          <span>PostgreSQL</span>
+          <span>Tailwind</span>
+          <span>Prisma</span>
+        </div>
+        <a href="#" class="portfolio-link">
+          <i class="fas fa-external-link-alt"></i> View Project
+        </a>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="portfolio-image">
+        <i class="fas fa-store"></i>
+      </div>
+      <div class="portfolio-body">
+        <h3>E-Commerce Platform</h3>
+        <p>Full-featured online store with product catalog, cart, checkout, and payment integration.</p>
+        <div class="portfolio-tech">
+          <span>React</span>
+          <span>Stripe</span>
+          <span>Node.js</span>
+          <span>MongoDB</span>
+        </div>
+        <a href="#" class="portfolio-link">
+          <i class="fas fa-external-link-alt"></i> View Project
+        </a>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="portfolio-image">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="portfolio-body">
+        <h3>AI Chatbot Assistant</h3>
+        <p>Intelligent chatbot with natural language processing for customer support and automation.</p>
+        <div class="portfolio-tech">
+          <span>Python</span>
+          <span>OpenAI</span>
+          <span>React</span>
+          <span>WebSocket</span>
+        </div>
+        <a href="#" class="portfolio-link">
+          <i class="fas fa-external-link-alt"></i> View Project
+        </a>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <div class="portfolio-image">
+        <i class="fas fa-video"></i>
+      </div>
+      <div class="portfolio-body">
+        <h3>Video Streaming Platform</h3>
+        <p>Live streaming and video-on-demand platform with real-time chat and engagement features.</p>
+        <div class="portfolio-tech">
+          <span>Next.js</span>
+          <span>WebRTC</span>
+          <span>Node.js</span>
+          <span>Redis</span>
+        </div>
+        <a href="#" class="portfolio-link">
+          <i class="fas fa-external-link-alt"></i> View Project
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ===== PRELOADER =====
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('preloader').classList.add('hidden');
+        document.body.classList.add('loaded');
+      }, 2500);
+    });
+
+    // ===== NAVIGATION =====
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // ===== PORTFOLIO REVEAL =====
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 150);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    portfolioItems.forEach(item => observer.observe(item));
+  </script>
+
+</body>
+</html>
