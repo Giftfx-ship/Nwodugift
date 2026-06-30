@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
   <style>
-    /* ===== ABOUT PAGE STYLES ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --bg-primary: #0a0a0f;
@@ -325,36 +324,25 @@
     .value-item h4 { font-size: 1rem; }
     .value-item span { font-size: 0.85rem; color: var(--text-muted); }
 
-    .code-image {
-      background: #0d0d1a;
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      border: 1px solid var(--border-glow);
-      font-family: 'Space Grotesk', monospace;
-      font-size: 0.85rem;
+    /* Profile Image on About Page */
+    .about-profile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    .code-image .line {
-      padding: 0.15rem 0;
-      opacity: 0;
-      animation: codeReveal 0.5s ease forwards;
+    .about-profile img {
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(0,212,255,0.3);
+      box-shadow: 0 0 60px rgba(0,212,255,0.15);
+      animation: floatOrb 6s ease-in-out infinite;
     }
-    .code-image .line:nth-child(1) { animation-delay: 3.2s; }
-    .code-image .line:nth-child(2) { animation-delay: 3.4s; }
-    .code-image .line:nth-child(3) { animation-delay: 3.6s; }
-    .code-image .line:nth-child(4) { animation-delay: 3.8s; }
-    .code-image .line:nth-child(5) { animation-delay: 4.0s; }
-    .code-image .line:nth-child(6) { animation-delay: 4.2s; }
-    .code-image .line:nth-child(7) { animation-delay: 4.4s; }
-    @keyframes codeReveal {
-      from { opacity: 0; transform: translateX(-10px); }
-      to { opacity: 1; transform: translateX(0); }
+    @keyframes floatOrb {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
     }
-    .code-keyword { color: var(--pink); }
-    .code-var { color: var(--cyan); }
-    .code-string { color: var(--gold); }
-    .code-boolean { color: var(--purple); }
-    .code-prop { color: var(--text-secondary); }
-    .code-comment { color: var(--text-muted); font-style: italic; }
 
     /* Timeline */
     .timeline-section {
@@ -394,15 +382,15 @@
     .timeline-item p { color: var(--text-muted); font-size: 0.9rem; }
 
     @media (max-width: 768px) {
-      .about-content { grid-template-columns: 1fr; gap: 2rem; }
+      .about-content { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
       .about-values { grid-template-columns: 1fr; }
       .page-title { font-size: 2.5rem; }
       .timeline-grid { grid-template-columns: 1fr; }
+      .about-profile img { width: 200px; height: 200px; }
     }
     @media (max-width: 480px) {
       .page-title { font-size: 2rem; }
-      .code-image { padding: 1rem; }
-      .code-image .line { font-size: 0.75rem; }
+      .about-profile img { width: 160px; height: 160px; }
     }
   </style>
 </head>
@@ -499,17 +487,8 @@
         </div>
       </div>
     </div>
-    <div class="about-visual">
-      <div class="code-image">
-        <div class="line"><span class="code-comment">// The developer behind the code</span></div>
-        <div class="line"><span class="code-keyword">const</span> <span class="code-var">devGift</span> = {</div>
-        <div class="line">  <span class="code-prop">title</span>: <span class="code-string">"Web Engineer"</span>,</div>
-        <div class="line">  <span class="code-prop">location</span>: <span class="code-string">"Kwale, Delta"</span>,</div>
-        <div class="line">  <span class="code-prop">mission</span>: <span class="code-string">"Build the future"</span>,</div>
-        <div class="line">  <span class="code-prop">available</span>: <span class="code-boolean">true</span>,</div>
-        <div class="line">  <span class="code-prop">passion</span>: <span class="code-string">"Code + Design"</span></div>
-        <div class="line">};</div>
-      </div>
+    <div class="about-profile">
+      <img src="images/anime.png" alt="Dev Gift - Anime Avatar" />
     </div>
   </section>
 
@@ -544,7 +523,6 @@
   </section>
 
   <script>
-    // ===== PRELOADER =====
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('preloader').classList.add('hidden');
@@ -552,7 +530,6 @@
       }, 2500);
     });
 
-    // ===== NAVIGATION =====
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
 
@@ -577,7 +554,6 @@
       }
     });
 
-    // ===== TIMELINE REVEAL =====
     const timelineItems = document.querySelectorAll('.timeline-item');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, index) => {
