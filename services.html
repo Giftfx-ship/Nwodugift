@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dev Gift · Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* ============================================================
+       SERVICES PAGE - PROFESSIONAL WITH ANIMATIONS
+       ============================================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #11111a;
+      --bg-card: rgba(18, 18, 30, 0.92);
+      --text-primary: #ffffff;
+      --text-secondary: #b8b8d0;
+      --text-muted: #6a6a85;
+      --cyan: #00d4ff;
+      --purple: #7c3aed;
+      --pink: #ec4899;
+      --gold: #f59e0b;
+      --gradient-primary: linear-gradient(135deg, #00d4ff, #7c3aed, #ec4899);
+      --border-glow: rgba(0, 212, 255, 0.12);
+      --radius-lg: 28px;
+      --radius-md: 16px;
+      --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.5);
+      --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Space Grotesk', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.7;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    body.loaded { opacity: 1; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
+
+    /* ===== PRELOADER ===== */
+    .preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--bg-primary);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.8s ease;
+    }
+    .preloader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .preloader-cube {
+      width: 80px; height: 80px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: spinCube 1.5s infinite linear;
+    }
+    .preloader-cube .face {
+      position: absolute;
+      width: 80px; height: 80px;
+      background: var(--gradient-primary);
+      border: 2px solid rgba(255,255,255,0.1);
+      opacity: 0.9;
+    }
+    .preloader-cube .front { transform: translateZ(40px); }
+    .preloader-cube .back { transform: translateZ(-40px) rotateY(180deg); }
+    .preloader-cube .right { transform: translateX(40px) rotateY(90deg); }
+    .preloader-cube .left { transform: translateX(-40px) rotateY(-90deg); }
+    .preloader-cube .top { transform: translateY(-40px) rotateX(90deg); }
+    .preloader-cube .bottom { transform: translateY(40px) rotateX(-90deg); }
+    @keyframes spinCube {
+      0% { transform: rotateX(0deg) rotateY(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+    .preloader-text {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      letter-spacing: 4px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 600;
+      animation: pulseText 1.5s infinite;
+    }
+    .preloader-sub {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      letter-spacing: 2px;
+    }
+    .preloader-bar {
+      width: 200px;
+      height: 2px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      margin-top: 1.5rem;
+      overflow: hidden;
+    }
+    .preloader-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--gradient-primary);
+      border-radius: 10px;
+      animation: loadBar 2s ease forwards;
+    }
+    @keyframes loadBar {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    @keyframes pulseText {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ===== NAVIGATION ===== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 0 2rem;
+      height: 75px;
+      display: flex;
+      align-items: center;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: all 0.4s;
+      transform: translateY(-100%);
+      animation: slideDown 0.8s ease 2.2s forwards;
+    }
+    @keyframes slideDown {
+      to { transform: translateY(0); }
+    }
+    .navbar.scrolled {
+      background: rgba(8, 8, 14, 0.96);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+    }
+    .nav-container {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .logo-emoji { color: var(--cyan); font-size: 1.8rem; }
+    .logo-light { color: var(--text-muted); font-weight: 400; }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-menu a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+      transition: all 0.3s;
+    }
+    .nav-menu a:hover::after,
+    .nav-menu a.active::after { width: 100%; }
+    .nav-menu a:hover { color: var(--text-primary); }
+    .nav-menu a.active { color: var(--text-primary); }
+    .nav-cta {
+      background: var(--gradient-primary);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      color: #fff !important;
+      font-weight: 600 !important;
+      transition: all 0.3s !important;
+    }
+    .nav-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0,212,255,0.3);
+    }
+    .nav-cta::after { display: none !important; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 75px; left: 0;
+        width: 100%;
+        background: rgba(10,10,15,0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        transform: translateY(-120%);
+        transition: all 0.4s;
+        border-bottom: 1px solid var(--border-glow);
+      }
+      .nav-menu.active { transform: translateY(0); }
+      .hamburger { display: flex; }
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      padding: 10rem 2rem 5rem;
+      text-align: center;
+      position: relative;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 30%, rgba(0,212,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-tag {
+      font-size: 0.8rem;
+      color: var(--cyan);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease 2.5s forwards;
+    }
+    .page-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-top: 0.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 2.7s forwards;
+    }
+    .page-desc {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 1rem auto 0;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 2.9s forwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== SERVICES GRID ===== */
+    .services-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .service-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.6s ease;
+    }
+    .service-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,212,255,0.08);
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient-primary);
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+    .service-icon {
+      font-size: 2.5rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .service-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+    }
+    .service-features {
+      list-style: none;
+    }
+    .service-features li {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .service-features li::before {
+      content: '◆';
+      color: var(--cyan);
+      font-size: 0.6rem;
+    }
+
+    /* ===== CTA ===== */
+    .cta-section {
+      padding: 4rem 2rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    .cta-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .cta-section p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 2.2rem;
+      background: var(--gradient-primary);
+      border-radius: 50px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(0,212,255,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .page-title { font-size: 2.5rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .cta-section h2 { font-size: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .page-title { font-size: 2rem; }
+      .service-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== PRELOADER ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-cube">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face right"></div>
+      <div class="face left"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
+    </div>
+    <div class="preloader-text">Dev Gift</div>
+    <div class="preloader-sub">Loading...</div>
+    <div class="preloader-bar">
+      <div class="preloader-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-emoji">◆</span> DEV<span class="logo-light">GIFT</span>
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="portfolio.html">Work</a></li>
+        <li><a href="contact.html" class="nav-cta">Let's Talk</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-header">
+    <span class="page-tag">What I Offer</span>
+    <h1 class="page-title">Services That <span class="gradient-text">Deliver</span></h1>
+    <p class="page-desc">End-to-end solutions for the modern web.</p>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="services-grid">
+    <div class="service-card">
+      <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+      <h3>Web Development</h3>
+      <p>Custom websites and web apps built with modern tech stacks.</p>
+      <ul class="service-features">
+        <li>React / Next.js</li>
+        <li>Node.js / Python</li>
+        <li>Tailwind CSS</li>
+        <li>Responsive Design</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+      <h3>Mobile-First Design</h3>
+      <p>Responsive designs that look flawless on every device.</p>
+      <ul class="service-features">
+        <li>PWA Ready</li>
+        <li>iOS / Android</li>
+        <li>Touch Optimized</li>
+        <li>Fast Loading</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon"><i class="fas fa-database"></i></div>
+      <h3>Backend & APIs</h3>
+      <p>Scalable, secure, and lightning-fast backend systems.</p>
+      <ul class="service-features">
+        <li>REST / GraphQL</li>
+        <li>PostgreSQL / MongoDB</li>
+        <li>Authentication</li>
+        <li>Cloud Integration</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon"><i class="fas fa-cloud"></i></div>
+      <h3>Cloud & DevOps</h3>
+      <p>Deploy, scale, and maintain your infrastructure like a pro.</p>
+      <ul class="service-features">
+        <li>AWS / Vercel</li>
+        <li>CI/CD Pipelines</li>
+        <li>Performance Monitoring</li>
+        <li>Auto-scaling</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon"><i class="fas fa-robot"></i></div>
+      <h3>AI & Automation</h3>
+      <p>Intelligent solutions that automate and optimize your workflow.</p>
+      <ul class="service-features">
+        <li>AI Integration</li>
+        <li>Automation Tools</li>
+        <li>Data Analysis</li>
+        <li>Smart Chatbots</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+      <h3>SEO & Performance</h3>
+      <p>Optimize your site for search engines and speed.</p>
+      <ul class="service-features">
+        <li>SEO Optimization</li>
+        <li>Lighthouse 90+</li>
+        <li>Core Web Vitals</li>
+        <li>Analytics Setup</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <h2>Ready to <span class="gradient-text">Build</span> Something Amazing?</h2>
+    <p>Let's turn your vision into reality. I'm just a message away.</p>
+    <a href="contact.html" class="btn-primary">
+      <i class="fas fa-paper-plane"></i> Start Your Project
+    </a>
+  </section>
+
+  <script>
+    // ===== PRELOADER =====
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('preloader').classList.add('hidden');
+        document.body.classList.add('loaded');
+      }, 2500);
+    });
+
+    // ===== NAVIGATION =====
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // ===== SERVICE CARDS REVEAL =====
+    const serviceCards = document.querySelectorAll('.service-card');
+    const ctaSection = document.querySelector('.cta-section');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 150);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    serviceCards.forEach(card => observer.observe(card));
+
+    const ctaObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    ctaObserver.observe(ctaSection);
+  </script>
+
+</body>
+</html>
